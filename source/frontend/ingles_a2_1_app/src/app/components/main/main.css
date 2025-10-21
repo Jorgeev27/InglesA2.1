@@ -1,0 +1,19 @@
+.bandera-hero {
+  height: 100vh;
+  background: url('../../../assets/img/banderaInglaterra.jpg') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: black;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  font-size: 3rem;
+  font-weight: bold;
+  animation: scrollBackground 20s linear infinite;
+}
+
+/* Efecto movimiento lento tipo Midudev */
+@keyframes scrollBackground {
+  from { background-position: center top; }
+  to { background-position: center bottom; }
+}

@@ -7,8 +7,10 @@ import { Examenes } from './components/examenes/examenes';
 import { AdminClases } from './components/admin-clases/admin-clases';
 import { AdminFotos } from './components/admin-fotos/admin-fotos';
 import { AdminExamenes } from './components/admin-examenes/admin-examenes';
+import { Main } from './components/main/main';
 
 export const routes: Routes = [
+    { path: '', component: Main },
     { path: 'calendario', component: CalendarioComponent },
     { path: 'clase', component: ClasesDetalle },
     { path: 'examenes', component: Examenes },
