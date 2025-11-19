@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npx ng build --prod",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "npm install -g @angular/cli"
   },
   "prettier": {
     "printWidth": 100,
@@ -40,7 +41,7 @@
   },
   "devDependencies": {
     "@angular/build": "^20.2.2",
-    "@angular/cli": "^20.2.2",
+    "@angular/cli": "^20.3.10",
     "@angular/compiler-cli": "^20.2.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
