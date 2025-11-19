@@ -1,50 +1,49 @@
 <?php
-    require_once("../connection/conexion.php");
-    $method = $_SERVER['REQUEST_METHOD'];
+require_once("../connection/conexion.php");
+$method = $_SERVER['REQUEST_METHOD'];
 
-    switch ($method) {
-        case 'GET':
-            $stmt = $conexion->prepare("SELECT * FROM clases ORDER BY fecha ASC");
-            $stmt->execute();
-            echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-            break;
+switch ($method) {
 
-        case 'POST':
-            $data = json_decode(file_get_contents("php://input"), true);
-            $sql = "INSERT INTO clases (semana, dia, fecha, descripcion) VALUES (:semana, :dia, :fecha, :descripcion)";
-            $stmt = $conexion->prepare($sql);
-            $stmt->bindParam(':semana', $data['semana']);
-            $stmt->bindParam(':dia', $data['dia']);
-            $stmt->bindParam(':fecha', $data['fecha']);
-            $stmt->bindParam(':descripcion', $data['descripcion']);
-            $stmt->execute();
-            echo json_encode(["mensaje" => "Clase añadida correctamente"]);
-            break;
+    case 'GET':
+        $stmt = $conexion->prepare("SELECT * FROM clases ORDER BY fecha ASC");
+        $stmt->execute();
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        break;
 
-        case 'PUT':
-            $data = json_decode(file_get_contents("php://input"), true);
-            $sql = "UPDATE clases SET semana=:semana, dia=:dia, fecha=:fecha, descripcion=:descripcion WHERE id_clase=:id";
-            $stmt = $conexion->prepare($sql);
-            $stmt->bindParam(':semana', $data['semana']);
-            $stmt->bindParam(':dia', $data['dia']);
-            $stmt->bindParam(':fecha', $data['fecha']);
-            $stmt->bindParam(':descripcion', $data['descripcion']);
-            $stmt->bindParam(':id', $data['id_clase']);
-            $stmt->execute();
-            echo json_encode(["mensaje" => "Clase actualizada correctamente"]);
-            break;
+    case 'POST':
+        $data = json_decode(file_get_contents("php://input"));
 
-        case 'DELETE':
-            if (isset($_GET['id'])) {
-                $stmt = $conexion->prepare("DELETE FROM clases WHERE id_clase = :id");
-                $stmt->bindParam(':id', $_GET['id']);
-                $stmt->execute();
-                echo json_encode(["mensaje" => "Clase eliminada correctamente"]);
-            }
-            break;
+        $fecha = $data->fecha;
+        $descripcion = $data->descripcion;
 
-        default:
-            echo json_encode(["error" => "Método no permitido"]);
-            break;
-    }
-?>
+        // validar martes o jueves
+        $diaIngles = strtolower(date("l", strtotime($fecha)));
+        $convertir = [
+            "tuesday" => "martes",
+            "thursday" => "jueves"
+        ];
+
+        if (!isset($convertir[$diaIngles])) {
+            echo json_encode(["error" => "Solo se permiten clases martes o jueves"]);
+            exit;
+        }
+
+        $dia = $convertir[$diaIngles];
+        $semana = date("W", strtotime($fecha));
+
+        $sql = "INSERT INTO clases (semana, dia, fecha, descripcion)
+                VALUES (:semana, :dia, :fecha, :descripcion)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':semana', $semana);
+        $stmt->bindParam(':dia', $dia);
+        $stmt->bindParam(':fecha', $fecha);
+        $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->execute();
+
+        echo json_encode(["success" => true]);
+        break;
+
+    default:
+        echo json_encode(["error" => "Método no permitido"]);
+        break;
+}

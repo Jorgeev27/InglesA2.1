@@ -1,8 +1,7 @@
 :host {
     display: block;
 }
-
-.fullcalendar {
+#calendar {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 20px auto;
 }
