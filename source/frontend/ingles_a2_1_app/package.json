@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npx ng build --prod",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "npm install -g @angular/cli"
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@angular/build": "^20.2.2",
-    "@angular/cli": "^20.3.10",
+    "@angular/cli": "^20.3.11",
     "@angular/compiler-cli": "^20.2.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
