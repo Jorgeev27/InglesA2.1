@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ClasesService {
 
-  private apiUrl = "http://localhost/InglesA2.1/source/backend/api/apiclases.php";
+  private apiUrl = "https://inglesa21.infinityfreeapp.com/api/apiclases.php";
 
   constructor(private http: HttpClient) {}
 
