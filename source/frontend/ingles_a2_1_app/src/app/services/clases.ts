@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ClasesService {
 
-  private apiUrl = "http://inglesa21.mywebcommunity.org/htdocs/apiclases.php";
+  // CAMBIADO: Apunta al proxy local en Vercel
+  // Vercel sabe que /api/proxy debe ejecutar el archivo api/proxy.js
+  private apiUrl = "../../../api/proxy.js"; 
 
   constructor(private http: HttpClient) {}
 
@@ -16,6 +18,7 @@ export class ClasesService {
   }
 
   insertarClase(data: any): Observable<any> {
+    // Esto seguirá funcionando porque el proxy.js reenviará la petición POST
     return this.http.post(this.apiUrl, data);
   }
 }
