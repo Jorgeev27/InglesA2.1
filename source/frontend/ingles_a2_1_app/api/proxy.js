@@ -1,12 +1,11 @@
 // /api/proxy.js en la raíz de tu proyecto Vercel
 
-const fetch = require('node-fetch'); 
-
 // Esta es la URL COMPLETA de tu API de PHP original
 const TARGET_URL = 'http://inglesa21.infinityfreeapp.com/htdocs/apiclases.php'; // Usa la URL correcta de tu API
 
 module.exports = async (req, res) => {
     try {
+        // fetch nativo de Node 18+
         const apiResponse = await fetch(TARGET_URL);
         const data = await apiResponse.json();
 
