@@ -1,39 +1,37 @@
-// /api/proxy.js - formato ES Modules para Vercel
-const TARGET_URL = 'http://inglesa21.infinityfreeapp.com/htdocs/apiclases.php';
-
 export default async function handler(req, res) {
-  // Manejo de preflight CORS
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.status(204).end();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // OPTIONS fix para móviles y Chrome
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  const targetUrl = req.query.url;
+
+  if (!targetUrl) {
+    return res.status(400).json({ error: "Missing ?url=" });
   }
 
   try {
-    const apiResponse = await fetch(TARGET_URL);
-    
-    // Comprobamos que la respuesta sea correcta
-    if (!apiResponse.ok) {
-      throw new Error(`HTTP ${apiResponse.status} - ${apiResponse.statusText}`);
+    const fetchOptions = {
+      method: req.method,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    if (req.method !== "GET") {
+      fetchOptions.body = JSON.stringify(req.body);
     }
 
-    // Intentamos parsear JSON de forma segura
-    let data;
-    try {
-      data = await apiResponse.json();
-    } catch (jsonError) {
-      throw new Error('La API externa no devolvió JSON válido.');
-    }
+    const response = await fetch(targetUrl, fetchOptions);
+    const data = await response.json();
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-    return res.status(200).json(data);
+    return res.status(response.status).json(data);
 
   } catch (error) {
-    console.error('Error en /api/proxy:', error.message);
     return res.status(500).json({ error: error.message });
   }
 }
