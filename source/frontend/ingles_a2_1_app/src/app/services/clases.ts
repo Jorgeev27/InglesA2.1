@@ -1,4 +1,3 @@
-// clases.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class ClasesService {
 
-  // URL directa de tu PHP (InfinityFree)
-  private backendUrl = "http://inglesa21.infinityfreeapp.com/api/apiclases.php";
-  
-  // Usamos el proxy relativo. Al subirlo a Vercel, sabrá que es su propia carpeta /api
-  private proxyUrl = "/api/proxy?url=" + encodeURIComponent(this.backendUrl);
+  private backend = "http://inglesa21.mywebcommunity.org/htdocs/apiclases.php"; 
+  // ¡CAMBIA ESTA URL POR LA QUE FUNCIONE!
+
+  private proxyUrl = "https://ingles-a2-1.vercel.app/api/proxy?url=" 
+                      + encodeURIComponent(this.backend);
 
   constructor(private http: HttpClient) {}
 
