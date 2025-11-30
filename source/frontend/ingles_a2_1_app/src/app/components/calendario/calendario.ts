@@ -17,6 +17,8 @@ import { ClasesService } from '../../services/clases';
 })
 export class CalendarioComponent implements OnInit {
 
+  clases: any[] = [];
+
   calendarOptions: any = {
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
@@ -24,12 +26,13 @@ export class CalendarioComponent implements OnInit {
     editable: false,
     locale: 'es',
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      right: 'timeGridDay,timeGridWeek,dayGridMonth'
     },
     events: [],
-    dateClick: (info: any) => this.onDateClick(info)
+    dateClick: (info: any) => this.onDateClick(info),
+    eventClick: (info: any) => this.onEventClick(info)     // ✅ AÑADIDO
   };
 
   constructor(private clasesService: ClasesService) {}
@@ -40,6 +43,8 @@ export class CalendarioComponent implements OnInit {
 
   cargarClases() {
     this.clasesService.obtenerClases().subscribe(data => {
+      this.clases = data;   // Guardamos todas las clases
+
       this.calendarOptions.events = data.map((clase: any) => ({
         title: clase.descripcion,
         start: clase.fecha,
@@ -48,7 +53,30 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
+  // ────────────────────────────────────────────
+  //  CLICK EN DÍA
+  // ────────────────────────────────────────────
   onDateClick(info: any) {
+
+    // 1️⃣ Comprobar si ese día YA tiene clase
+    const claseExistente = this.clases.find(c => c.fecha === info.dateStr);
+
+    if (claseExistente) {
+      Swal.fire({
+        title: info.dateStr,
+        html: `
+          <div style="font-size:18px; text-align:left;">
+            <b>Contenido de la clase:</b><br>
+            ${claseExistente.descripcion}
+          </div>
+        `,
+        confirmButtonText: "Cerrar",
+        icon: "info"
+      });
+      return;
+    }
+
+    // 2️⃣ Si no existe → permitir crearla
     const fecha = new Date(info.dateStr);
     const dia = fecha.getDay(); // martes = 2, jueves = 4
 
@@ -65,7 +93,7 @@ export class CalendarioComponent implements OnInit {
       title: "Añadir clase",
       input: "text",
       inputLabel: "Descripción:",
-      inputPlaceholder: "Ej: Repasamos página 25-26",
+      inputPlaceholder: "Ej: Reading + Listening",
       showCancelButton: true,
       confirmButtonText: "Guardar"
     }).then(result => {
@@ -80,6 +108,26 @@ export class CalendarioComponent implements OnInit {
         Swal.fire("Guardado", "La clase se añadió correctamente.", "success");
         this.cargarClases();
       });
+    });
+  }
+
+  // ────────────────────────────────────────────
+  //  CLICK EN EVENTO
+  // ────────────────────────────────────────────
+  onEventClick(info: any) {
+    const descripcion = info.event.title;
+    const fecha = info.event.startStr;
+
+    Swal.fire({
+      title: fecha,
+      html: `
+        <div style="font-size:18px; text-align:left;">
+          <b>Contenido de la clase:</b><br>
+          ${descripcion}
+        </div>
+      `,
+      icon: "info",
+      confirmButtonText: "Aceptar"
     });
   }
 }

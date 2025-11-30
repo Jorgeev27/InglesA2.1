@@ -1,1 +1,22 @@
-<p>clases-detalle works!</p>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Clases Detalle</h1>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" *ngFor="let d of detalles">
+                    <div class="card h-100 shadow-sm bg-success text-white">
+                        <img [src]="d.imagen" class="card-img-top" alt="Imagen de clase">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ d.titulo }}</h5>
+                            <h4 class="card-text">{{ d.descripcion }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
