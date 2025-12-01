@@ -5,14 +5,20 @@
         </div>
     </div>
     <div class="row mt-4">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary me-md-2" type="button" (click)="agregarDetalle()">Añadir</button>
+        </div>
+    </div>
+    <div class="row mt-4">
         <div class="col">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col" *ngFor="let d of detalles">
                     <div class="card h-100 shadow-sm bg-success text-white">
-                        <img [src]="d.imagen" class="card-img-top" alt="Imagen de clase">
+                        <div class="card-header text-center fw-bold">
+                            {{ d.fecha | date:'EEEE d MMMM y' : 'es' }}
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ d.titulo }}</h5>
-                            <h4 class="card-text">{{ d.descripcion }}</h4>
+                            <p class="card-text">{{ d.descripcion }}</p>
                         </div>
                     </div>
                 </div>
