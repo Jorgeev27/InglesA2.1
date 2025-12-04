@@ -18,7 +18,7 @@
   <a href="https://github.com/Jorgeev27/InglesA2.1/tree/main/source/backend">Backend:</a> La parte lógica de la aplicación que se ocupa de la gestión de datos y la interacción con los días de la semana cuando se tengan clases de inglés. Desarrollada con PHP y MySQL (PHPMyAdmin).
 </div>
 <div align="justify">
-  <a href="https://github.com/Jorgeev27/Servicio-Peluqueria/tree/main/source/frontend/appServicioPeluqueria">Frontend:</a> La parte de la aplicación en la que los usuarios pueden ver e interactuar directamente con ésta. Aquí se encuentra desarrollada en Angular versión 20.2.2, HTML, CSS y Bootstrap.
+  <a href="https://github.com/Jorgeev27/InglesA2.1/tree/main/source/frontend/ingles_a2_1_app">Frontend:</a> La parte de la aplicación en la que los usuarios pueden ver e interactuar directamente con ésta. Aquí se encuentra desarrollada en Angular versión 20.2.2, HTML, CSS y Bootstrap.
 </div>
 
 ## **3. Descripción amplia de la aplicación**<a name="id3"></a>
