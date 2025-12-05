@@ -1,16 +1,17 @@
+<!-- Usamos el HTML que me pasaste pero agregamos el #addExamBtn para el click de Angular -->
 <main class="container mt-4">
-    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary d-flex justify-content-between align-items-center">
         <div class="col-lg-6 px-0">
             <h1 class="display-4 fst-italic">Examenes</h1>
             <p class="lead my-3">Fechas para poner los exámenes</p>
         </div>
+        <button class="btn btn-primary btn-lg" (click)="anadirExamen()">Añadir examen</button>
     </div>
     <div class="row g-5">
         <div class="col-md-8">
             <article class="blog-post">
-                <h2 class="display-5 link-body-emphasis mb-1">Sample blog post</h2>
-                <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap.
-                    Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
+                <h2 class="display-5 link-body-emphasis mb-1">Próximos Exámenes</h2>
+                <div id="futureExamsContainer"></div>
                 <hr>
             </article>
         </div>
@@ -18,36 +19,13 @@
             <div class="position-sticky" style="top: 2rem;">
                 <div>
                     <h4 class="fst-italic">Examenes anteriores</h4>
-                    <ul class="list-unstyled">
-                        <li> <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                                href="#"><img src="../../../assets/img/banderaInglaterra.jpg" width="33%" alt="">
-                                <div class="col-lg-8">
-                                    <h6 class="mb-0">Example blog post title</h6> <small
-                                        class="text-body-secondary">January 15, 2024</small>
-                                </div>
-                            </a> </li>
-                        <li> <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                                href="#"><img src="../../../assets/img/banderaInglaterra.jpg" width="33%" alt="">
-                                <div class="col-lg-8">
-                                    <h6 class="mb-0">This is another blog post title</h6> <small
-                                        class="text-body-secondary">January 14, 2024</small>
-                                </div>
-                            </a> </li>
-                        <li> <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                                href="#"><img src="../../../assets/img/banderaInglaterra.jpg" width="33%" alt="">
-                                <div class="col-lg-8">
-                                    <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
-                                    <small class="text-body-secondary">January 13, 2024</small>
-                                </div>
-                            </a> </li>
-                    </ul>
+                    <ul class="list-unstyled" id="pastExamsContainer"></ul>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a
-            href="https://x.com/mdo">@mdo</a>.</p>
-    <p class="mb-0"> <a href="#">Back to top</a> </p>
+<footer class="py-5 text-center bg-dark">
+    <p><a href="https://github.com/Jorgeev27" target="_blank">Jorge Escobar Viñuales</a></p>
+    <p class="mb-0"> <a href="">Volver</a> </p>
 </footer>

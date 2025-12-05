@@ -1,0 +1,15 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+    footer a[target="_blank"] {
+        color: white;
+        text-decoration: none; /* opcional, quita subrayado */
+    }
+
+    /* Mantener color al pasar el ratón */
+    footer a[target="_blank"]:hover {
+        color: rgb(255, 217, 0); /* o cualquier tono de blanco */
+    }
