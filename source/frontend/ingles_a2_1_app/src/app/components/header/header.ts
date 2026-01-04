@@ -6,7 +6,10 @@ import { RouterModule } from '@angular/router';
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './header.html',
-  styleUrls: ['./header.css']
+  templateUrl: './header.html'
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+
+constructor() {}
+
+}
